@@ -26,5 +26,10 @@ namespace samalonso.zombieasteroids.Behaviors
         {
             gameEntitiesPositionService.RegisterEntityPosition(gameObject.name, transform.position);
         }
+
+        private void OnDestroy()
+        {
+            gameEntitiesPositionService.UnRegisterEntityPosition(gameObject.name);
+        }
     }
 }
