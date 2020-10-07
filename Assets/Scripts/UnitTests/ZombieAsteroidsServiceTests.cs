@@ -1,19 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Moq;
 using NUnit.Framework;
 using samalonso.zombieasteroids.Services;
-using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace Tests
 {
     public class ZombieAsteroidsServiceTests
     {
-        // A Test behaves as an ordinary method
         [Test]
-        public void ZombieAsteroidsServiceTestsSimplePasses()
+        public void ZombieAsteroidsManagerServiceStart()
         {
+            var positionServiceMock = new Mock<IPositionService>();
+            var chasePlayerAIService = new Mock<IGameAIEnemyService>();
+            var zombieAsteroidsManagerService = new ZombiesAsteroidsManagerService(chasePlayerAIService.Object, positionServiceMock.Object);
             
+            zombieAsteroidsManagerService.StartGame();
+            
+            Assert.AreEqual(true, zombieAsteroidsManagerService.isGameInProgress);
+        }
+        
+        [Test]
+        public void ZombieAsteroidsManagerServiceStop()
+        {
+            var positionServiceMock = new Mock<IPositionService>();
+            var chasePlayerAIService = new Mock<IGameAIEnemyService>();
+            var zombieAsteroidsManagerService = new ZombiesAsteroidsManagerService(chasePlayerAIService.Object, positionServiceMock.Object);
+            
+            zombieAsteroidsManagerService.StartGame();
+            zombieAsteroidsManagerService.EndGame();
+            
+            Assert.AreEqual(false, zombieAsteroidsManagerService.isGameInProgress);
         }
     }
 }
