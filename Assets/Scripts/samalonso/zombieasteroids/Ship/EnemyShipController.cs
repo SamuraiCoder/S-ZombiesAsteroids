@@ -43,6 +43,8 @@ namespace samalonso.zombieasteroids.Ship
         {
             if (obj.gameObject.CompareTag("LaserBullet"))
             {
+                Destroy(obj.gameObject);
+                
                 LeanTween.scale(gameObject, Vector2.one * 2.20f, 0.8f).setEasePunch().setOnComplete(() =>
                 {
                     Destroy(gameObject);
