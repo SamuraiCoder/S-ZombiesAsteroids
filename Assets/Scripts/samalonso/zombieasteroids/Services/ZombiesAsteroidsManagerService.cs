@@ -8,7 +8,7 @@ namespace samalonso.zombieasteroids.Services
     {
         private IGameAIEnemyService chasePlayerAIService;
         private IPositionService gameEntitiesPositionService;
-        private bool isGameInProgress;
+        internal bool isGameInProgress;
         
         public ZombiesAsteroidsManagerService(IGameAIEnemyService chasePlayerAIService, IPositionService gameEntitiesPositionService)
         {
@@ -35,7 +35,7 @@ namespace samalonso.zombieasteroids.Services
             }
         }
 
-        private void EndGame()
+        internal void EndGame()
         {
             EventBus.UnRegister(this);
             

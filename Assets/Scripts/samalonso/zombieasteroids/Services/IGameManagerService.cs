@@ -1,4 +1,7 @@
-﻿namespace samalonso.zombieasteroids.Services
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("UnitTests")]
+namespace samalonso.zombieasteroids.Services
 {
     public interface IGameManagerService
     {
