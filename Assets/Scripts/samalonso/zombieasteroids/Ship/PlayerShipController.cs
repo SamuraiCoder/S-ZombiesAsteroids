@@ -44,10 +44,12 @@ namespace samalonso.zombieasteroids.Ship
 
         public void OnEvent(PlayerShootLaserEvent e)
         {
-            if (ZombieAsteroidsManagerService.InProgress)
+            if (!ZombieAsteroidsManagerService.InProgress)
             {
-                shootingEntityBehavior.ShootProjectile();
+                return;
             }
+            
+            shootingEntityBehavior.ShootProjectile();
         }
 
         public void OnEvent(PlayerShipDestroyed e)
