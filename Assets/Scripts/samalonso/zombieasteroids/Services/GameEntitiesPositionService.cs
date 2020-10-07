@@ -6,7 +6,7 @@ namespace samalonso.zombieasteroids.Services
 {
     public class GameEntitiesPositionService : IPositionService
     {
-        private readonly Dictionary<string, Vector2> entitiesPositionsByKey = new Dictionary<string, Vector2>();
+        private Dictionary<string, Vector2> entitiesPositionsByKey = new Dictionary<string, Vector2>();
 
         public Dictionary<string, Vector2> GetAllEntities() => entitiesPositionsByKey;
         
@@ -15,14 +15,26 @@ namespace samalonso.zombieasteroids.Services
             entitiesPositionsByKey[entityName] = entityPosition;
         }
 
+        public void UnRegisterEntityPosition(string entityName)
+        {
+            DoesEntityExist(entityName);
+            
+            entitiesPositionsByKey.Remove(entityName);
+        }
+
         public Vector2 GetEntityPosition(string entityName)
+        {
+            DoesEntityExist(entityName);
+
+            return entitiesPositionsByKey[entityName];
+        }
+
+        private void DoesEntityExist(string entityName)
         {
             if (!entitiesPositionsByKey.ContainsKey(entityName))
             {
                 throw new Exception($"Position for entity {entityName} not found!");
             }
-
-            return entitiesPositionsByKey[entityName];
         }
     }
 }
