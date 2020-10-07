@@ -1,8 +1,7 @@
 ﻿using pEventBus;
+using samalonso.zombieasteroids.Constants;
 using samalonso.zombieasteroids.Events;
-using samalonso.zombieasteroids.Services;
 using UnityEngine;
-using Zenject;
 
 namespace samalonso.zombieasteroids.Ship
 {
@@ -11,8 +10,6 @@ namespace samalonso.zombieasteroids.Ship
         private float enemySpeed;
         private Vector2 enemyDirection;
         
-        [Inject] public IGameAIEnemyService GameAIEnemyService;
-
         private void Start()
         {
             EventBus.Register(this);
@@ -54,8 +51,10 @@ namespace samalonso.zombieasteroids.Ship
             
             if (obj.gameObject.CompareTag("Player"))
             {
-                Debug.Log("Level Failed");
-                GameAIEnemyService.EndAI();
+                EventBus<PlayerDamaged>.Raise(new PlayerDamaged
+                {
+                    Reason = ReasonTypeCollision.CollisionWithPlayer
+                });
             }
         }
     }

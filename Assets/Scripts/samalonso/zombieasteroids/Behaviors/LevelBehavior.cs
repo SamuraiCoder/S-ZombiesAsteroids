@@ -9,12 +9,13 @@ namespace samalonso.zombieasteroids.Behaviors
         public GameObject enemyPrefab;
         public int enemiesToSpawn;
 
-        [Inject] public IGameAIEnemyService GameAIEnemyService;
+        [Inject] public IGameManagerService ZombiesAsteroidsManagerService;
         
         void Start()
         {
             SpawnEnemies();
-            GameAIEnemyService.StartAI();
+            
+            ZombiesAsteroidsManagerService.StartGame();
         }
         
        private void SpawnEnemies()
