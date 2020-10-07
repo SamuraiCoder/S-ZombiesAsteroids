@@ -48,7 +48,7 @@ namespace samalonso.zombieasteroids.Ship
 
         private void OnMovementFlare(Vector2 direction)
         {
-            if (direction.y == 1)
+            if (direction == Vector2.up)
             {
                 engineFlareBehavior.ShowFlare();
             }
