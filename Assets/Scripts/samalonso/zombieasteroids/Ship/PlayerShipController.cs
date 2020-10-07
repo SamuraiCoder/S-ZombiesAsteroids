@@ -1,12 +1,17 @@
 ﻿using pEventBus;
 using samalonso.zombieasteroids.Behaviors;
 using samalonso.zombieasteroids.Events;
+using samalonso.zombieasteroids.Services;
 using UnityEngine;
+using Zenject;
 
 namespace samalonso.zombieasteroids.Ship
 {
     public class PlayerShipController : Entity, IEventReceiver<PlayerShipMoveEvent>, IEventReceiver<PlayerShootLaserEvent>
+    , IEventReceiver<PlayerShipDestroyed>
     {
+        [Inject] public IGameManagerService ZombieAsteroidsManagerService;
+        
         [SerializeField]
         private float playerSpeed;
 
@@ -39,7 +44,18 @@ namespace samalonso.zombieasteroids.Ship
 
         public void OnEvent(PlayerShootLaserEvent e)
         {
-            shootingEntityBehavior.ShootProjectile();
+            if (ZombieAsteroidsManagerService.InProgress)
+            {
+                shootingEntityBehavior.ShootProjectile();
+            }
+        }
+
+        public void OnEvent(PlayerShipDestroyed e)
+        {
+            LeanTween.rotateAround(gameObject, Vector3.forward, 360, 0.25f).setOnComplete(() =>
+            {
+                Destroy(gameObject);
+            });
         }
     }
 }

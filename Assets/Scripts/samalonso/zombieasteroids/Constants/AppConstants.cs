@@ -1,5 +1,12 @@
 ﻿namespace samalonso.zombieasteroids.Constants
 {
+    public enum ReasonTypeCollision
+    {
+        CollisionWithPlayer,
+        CollisionWithAsteroid,
+        CollisionWithLaser
+    }
+    
     public class LevelContants
     {
         public static string ENEMY_PREFIX_NAME = "Phantom_";

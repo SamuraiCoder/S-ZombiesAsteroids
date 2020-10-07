@@ -11,6 +11,7 @@ namespace samalonso.zombieasteroids.Installers
             Container.Bind<string>().FromInstance("Welcome to S-Zombies-Asteroids! this msg tells Zenject is working well");
             Container.Bind<Greeter>().AsSingle().NonLazy();
             Container.Bind<IPositionService>().To<GameEntitiesPositionService>().AsSingle().NonLazy();
+            Container.Bind<IGameManagerService>().To<ZombiesAsteroidsManagerService>().AsSingle().NonLazy();
             Container.Bind(typeof(IGameAIEnemyService), typeof(ITickable)).To<ChasePlayerAIService>().AsSingle();
         }
     }
