@@ -17,11 +17,13 @@ namespace samalonso.zombieasteroids.Ship
 
         private Vector2 playerDirection;
         private ShootingEntityBehavior shootingEntityBehavior;
+        private EngineFlareBehavior engineFlareBehavior;
 
         private void Start()
         {
             EventBus.Register(this);
             shootingEntityBehavior = GetComponent<ShootingEntityBehavior>();
+            engineFlareBehavior = GetComponent<EngineFlareBehavior>();
         }
 
         private void OnDestroy()
@@ -40,6 +42,20 @@ namespace samalonso.zombieasteroids.Ship
         public void OnEvent(PlayerShipMoveEvent e)
         {
             playerDirection = e.Direction;
+
+            OnMovementFlare(e.Direction);
+        }
+
+        private void OnMovementFlare(Vector2 direction)
+        {
+            if (direction.y == 1)
+            {
+                engineFlareBehavior.ShowFlare();
+            }
+            else
+            {
+                engineFlareBehavior.HideFlare();
+            }
         }
 
         public void OnEvent(PlayerShootLaserEvent e)
